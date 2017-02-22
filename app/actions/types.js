@@ -50,3 +50,15 @@ export const IMPORT_LEADS = 'IMPORT_LEADS'
 
 export const LOAD_LEADS_REQUEST = 'LOAD_LEADS_REQUEST'
 export const LOAD_LEADS = 'LOAD_LEADS'
+
+export const ADD_LEAD_REQUEST = 'ADD_LEAD_REQUEST'
+export const ADD_LEAD = 'ADD_LEAD'
+
+export const GET_LEAD_REQUEST = 'GET_LEAD_REQUEST'
+export const GET_LEAD = 'GET_LEAD'
+
+export const UPDATE_LEAD_REQUEST = 'UPDATE_LEAD_REQUEST'
+export const UPDATE_LEAD = 'UPDATE_LEAD'
+
+export const DELETE_LEAD_REQUEST = 'DELETE_LEAD_REQUEST'
+export const DELETE_LEAD = 'DELETE_LEAD'

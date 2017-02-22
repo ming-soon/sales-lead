@@ -1,4 +1,4 @@
-import { fetchGet, fetchPost } from './helpers'
+import { fetchGet, fetchPost, fetchPut, fetchDelete } from './helpers'
 
 export const importLeads = leads => (
   new Promise((resolve, reject) => {
@@ -38,6 +38,74 @@ export const loadLeads = () => (
           resolve(leads)
         })
       }
+    })
+  })
+)
+
+export const addLead = lead => (
+  new Promise((resolve, reject) => {
+    fetchPost('/leads', lead).then((response) => {
+      if (response.status !== 200) {
+        response.json().then((json) => {
+          let message = json.message
+          if (Array.isArray(message)) {
+            message = message.join()
+          }
+          reject(message)
+        })
+      } else {
+        response.json().then((leadAdded) => {
+          resolve(leadAdded)
+        })
+      }
+    })
+  })
+)
+
+export const getLead = id => (
+  new Promise((resolve, reject) => {
+    fetchGet(`/leads/${id}`).then((response) => {
+      if (response.status !== 200) {
+        response.json().then((json) => {
+          let message = json.message
+          if (Array.isArray(message)) {
+            message = message.join()
+          }
+          reject(message)
+        })
+      } else {
+        response.json().then((lead) => {
+          resolve(lead)
+        })
+      }
+    })
+  })
+)
+
+export const updateLead = (id, lead) => (
+  new Promise((resolve, reject) => {
+    fetchPut(`/leads/${id}`, lead).then((response) => {
+      if (response.status !== 200) {
+        response.json().then((json) => {
+          let message = json.message
+          if (Array.isArray(message)) {
+            message = message.join()
+          }
+          reject(message)
+        })
+      } else {
+        response.json().then((leadUpdated) => {
+          resolve(leadUpdated)
+        })
+      }
+    })
+  })
+)
+
+export const deleteLead = id => (
+  new Promise((resolve) => {
+    fetchDelete(`/leads/${id}`).then(() => {
+      resolve(id)
     })
   })
 )

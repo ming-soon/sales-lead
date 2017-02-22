@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { GOOGLE_API_CLIENT_ID, GOOGLE_API_SCOPE } from 'Server/constants'
-import { importLeadsRequest, loadLeadsRequest } from 'App/actions/leads'
+import { importLeadsRequest, loadLeadsRequest, deleteLeadRequest } from 'App/actions/leads'
 import HomeView from '../components/HomeView'
 
 class HomeContainer extends Component {
@@ -10,6 +10,7 @@ class HomeContainer extends Component {
     leads: PropTypes.arrayOf(PropTypes.object).isRequired,
     importLeadsRequest: PropTypes.func.isRequired,
     loadLeadsRequest: PropTypes.func.isRequired,
+    deleteLeadRequest: PropTypes.func.isRequired,
   }
 
   constructor(props) {
@@ -23,6 +24,7 @@ class HomeContainer extends Component {
     this.onImport = this.onImport.bind(this)
     this.handleAuth = this.handleAuth.bind(this)
     this.importLeads = this.importLeads.bind(this)
+    this.onDelete = this.onDelete.bind(this)
   }
 
   componentDidMount() {
@@ -37,8 +39,18 @@ class HomeContainer extends Component {
     })
   }
 
+  /**
+   * Called when an Import button is clicked.
+   */
   onImport() {
     this.checkAuth(true, this.handleAuth)
+  }
+
+  /**
+   * Called when a Delete button is clicked on leads rows.
+   */
+  onDelete(id) {
+    this.props.deleteLeadRequest(id)
   }
 
   checkAuth = (immediate, callback) => {
@@ -123,6 +135,7 @@ class HomeContainer extends Component {
         isGoogleApiLoaded={isGoogleApiLoaded}
         isImporting={isImporting}
         onImport={this.onImport}
+        onDelete={this.onDelete}
         leads={leads}
       />
     )
@@ -137,6 +150,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   importLeadsRequest,
   loadLeadsRequest,
+  deleteLeadRequest,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeContainer)

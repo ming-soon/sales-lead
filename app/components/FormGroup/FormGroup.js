@@ -7,7 +7,7 @@ class FormGroup extends Component {
     label: PropTypes.string.isRequired,
     value: PropTypes.string,
     options: PropTypes.arrayOf(PropTypes.object),
-    validate: PropTypes.func.isRequired,
+    validate: PropTypes.func,
     onChange: PropTypes.func.isRequired,
   }
 
@@ -15,6 +15,7 @@ class FormGroup extends Component {
     type: 'text',
     value: '',
     options: [],
+    validate: () => (true),
   }
 
   constructor(props) {

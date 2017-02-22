@@ -26,6 +26,10 @@ router.put('/sheets/:id', isAuthenticated, SheetController.putSheet)
 router.delete('/sheets/:id', isAuthenticated, SheetController.deleteSheet)
 
 router.get('/leads', isAuthenticated, LeadController.getLeads)
+router.post('/leads', isAuthenticated, LeadController.postLead)
 router.post('/leads/bulk', isAuthenticated, LeadController.postLeadBulk)
+router.get('/leads/:id', isAuthenticated, LeadController.getLead)
+router.put('/leads/:id', isAuthenticated, LeadController.putLead)
+router.delete('/leads/:id', isAuthenticated, LeadController.deleteLead)
 
 export default router

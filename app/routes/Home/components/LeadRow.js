@@ -1,7 +1,8 @@
 import React, { PropTypes } from 'react'
+import Link from 'react-router/lib/Link'
 import { filterDate } from 'App/utils'
 
-const LeadRow = ({ index, company, name, email, phone, notes, createdAt }) => (
+const LeadRow = ({ _id, index, company, name, email, phone, notes, createdAt, onDelete }) => (
   <tbody>
     <tr>
       <td>{index}</td>
@@ -10,17 +11,25 @@ const LeadRow = ({ index, company, name, email, phone, notes, createdAt }) => (
       <td>{email}</td>
       <td>{phone}</td>
       <td>{filterDate(createdAt)}</td>
+      <td className="text-right">
+        <Link to={`/leads/${_id}`} className="btn btn-info btn-xs">Edit</Link>
+        <button type="button" className="btn btn-danger btn-xs" onClick={() => { onDelete(_id) }}>
+          Delete
+        </button>
+      </td>
     </tr>
     <tr>
       <td />
       <td colSpan="5">
         <strong>Notes:</strong> {notes}
       </td>
+      <td />
     </tr>
   </tbody>
 )
 
 LeadRow.propTypes = {
+  _id: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
   company: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
@@ -28,6 +37,7 @@ LeadRow.propTypes = {
   phone: PropTypes.string.isRequired,
   notes: PropTypes.string,
   createdAt: PropTypes.string.isRequired,
+  onDelete: PropTypes.func.isRequired,
 }
 
 LeadRow.defaultProps = {

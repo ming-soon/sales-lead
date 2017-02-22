@@ -5,6 +5,7 @@ import userUpdated from './userUpdated'
 import sheets from './sheets'
 import sheetUpdated from './sheetUpdated'
 import leads from './leads'
+import leadUpdated from './leadUpdated'
 import messages from './messages'
 
 export default combineReducers({
@@ -14,5 +15,6 @@ export default combineReducers({
   sheets,
   sheetUpdated,
   leads,
+  leadUpdated,
   messages,
 })

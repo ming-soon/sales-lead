@@ -42,10 +42,16 @@ export default (store) => {
 
   return (
     <Route path="/" component={CoreLayout}>
-      <IndexRoute component={Home} onEnter={requireAuth} />
+      <IndexRoute component={Home.List} onEnter={requireAuth} />
+
       <Route path="login" component={Login} onEnter={requireGuest} />
       <Route onEnter={requireAuth}>
         <Route path="profile" component={Profile} />
+
+        <Route path="leads">
+          <Route path="add" component={Home.Edit} />
+          <Route path=":id" component={Home.Edit} />
+        </Route>
 
         <Route path="sheets">
           <IndexRoute component={Sheet.List} />

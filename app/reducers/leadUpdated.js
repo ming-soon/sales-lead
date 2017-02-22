@@ -1,15 +1,17 @@
 import * as types from 'App/actions/types'
 
 const initialState = {
-  title: '',
-  spreadsheetId: '',
-  sheetName: '',
+  company: '',
+  name: '',
+  email: '',
+  phone: '',
+  notes: '',
 }
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case types.GET_SHEET:
-      return action.sheet
+    case types.GET_LEAD:
+      return action.lead
     default:
       return state
   }

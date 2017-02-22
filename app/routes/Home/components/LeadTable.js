@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import LeadRow from './LeadRow'
 
-const LeadTable = ({ leads }) => (
+const LeadTable = ({ leads, onDelete }) => (
   <table className="table table-striped table-hover">
     <thead>
       <tr>
@@ -11,6 +11,7 @@ const LeadTable = ({ leads }) => (
         <th>Email</th>
         <th>Phone</th>
         <th>Created At</th>
+        <th />
       </tr>
     </thead>
     {
@@ -18,13 +19,15 @@ const LeadTable = ({ leads }) => (
       ? (
         leads.map((lead, index) => (
           // eslint-disable-next-line no-underscore-dangle
-          <LeadRow key={lead._id} index={index + 1} {...lead} />
+          <LeadRow key={lead._id} index={index + 1} {...lead} onDelete={onDelete} />
         ))
       )
       : (
-        <tr>
-          <td colSpan="6" className="text-muted text-center">There is no lead.</td>
-        </tr>
+        <tbody>
+          <tr>
+            <td colSpan="7" className="text-muted text-center">There is no lead.</td>
+          </tr>
+        </tbody>
       )
     }
   </table>
@@ -32,6 +35,7 @@ const LeadTable = ({ leads }) => (
 
 LeadTable.propTypes = {
   leads: PropTypes.arrayOf(PropTypes.object).isRequired,
+  onDelete: PropTypes.func.isRequired,
 }
 
 export default LeadTable
