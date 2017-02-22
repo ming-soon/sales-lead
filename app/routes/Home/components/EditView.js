@@ -12,11 +12,6 @@ class EditView extends Component {
 
     this.state = { ...this.props.lead }
 
-    this.handleChangeCompany = this.handleChangeCompany.bind(this)
-    this.handleChangeName = this.handleChangeName.bind(this)
-    this.handleChangeEmail = this.handleChangeEmail.bind(this)
-    this.handleChangePhone = this.handleChangePhone.bind(this)
-    this.handleChangeNotes = this.handleChangeNotes.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
@@ -33,39 +28,10 @@ class EditView extends Component {
     return true
   }
 
-  handleChangeCompany(company) {
-    this.setState({
-      ...this.state,
-      company,
-    })
-  }
-
-  handleChangeName(name) {
-    this.setState({
-      ...this.state,
-      name,
-    })
-  }
-
-  handleChangeEmail(email) {
-    this.setState({
-      ...this.state,
-      email,
-    })
-  }
-
-  handleChangePhone(phone) {
-    this.setState({
-      ...this.state,
-      phone,
-    })
-  }
-
-  handleChangeNotes(notes) {
-    this.setState({
-      ...this.state,
-      notes,
-    })
+  handleChange = field => (value) => {
+    const newState = {}
+    newState[field] = value
+    this.setState(newState)
   }
 
   handleSubmit(event) {
@@ -88,31 +54,31 @@ class EditView extends Component {
                   label="Company"
                   value={this.state.company}
                   validate={this.validateCompany}
-                  onChange={this.handleChangeCompany}
+                  onChange={this.handleChange('company')}
                 />
                 <FormGroup
                   id="name"
                   label="Name"
                   value={this.state.name}
-                  onChange={this.handleChangeName}
+                  onChange={this.handleChange('name')}
                 />
                 <FormGroup
                   id="email"
                   label="Email"
                   value={this.state.email}
-                  onChange={this.handleChangeEmail}
+                  onChange={this.handleChange('email')}
                 />
                 <FormGroup
                   id="phone"
                   label="Phone"
                   value={this.state.phone}
-                  onChange={this.handleChangePhone}
+                  onChange={this.handleChange('phone')}
                 />
                 <FormGroup
                   id="notes"
                   label="Notes"
                   value={this.state.notes}
-                  onChange={this.handleChangeNotes}
+                  onChange={this.handleChange('notes')}
                 />
                 <div className="form-group no-margin-bottom">
                   <div className="col-sm-9 col-sm-offset-3">
