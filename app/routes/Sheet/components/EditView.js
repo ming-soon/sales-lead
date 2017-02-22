@@ -14,7 +14,7 @@ class EditView extends Component {
 
     this.handleChangeTitle = this.handleChangeTitle.bind(this)
     this.handleChangeSpreadsheetId = this.handleChangeSpreadsheetId.bind(this)
-    this.handleChangeSheetId = this.handleChangeSheetId.bind(this)
+    this.handleChangeSheetName = this.handleChangeSheetName.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
@@ -38,9 +38,9 @@ class EditView extends Component {
     return true
   }
 
-  validateSheetId = (sheetId) => {
-    if (!sheetId.length) {
-      return 'Sheet ID is required.'
+  validateSheetName = (sheetName) => {
+    if (!sheetName.length) {
+      return 'Sheet name is required.'
     }
     return true
   }
@@ -59,10 +59,10 @@ class EditView extends Component {
     })
   }
 
-  handleChangeSheetId(sheetId) {
+  handleChangeSheetName(sheetName) {
     this.setState({
       ...this.state,
-      sheetId,
+      sheetName,
     })
   }
 
@@ -74,11 +74,11 @@ class EditView extends Component {
   render() {
     const isTitleValid = this.validateTitle(this.state.title)
     const isSpreadsheetIdValid = this.validateSpreadsheetId(this.state.spreadsheetId)
-    const isSheetIdValid = this.validateSheetId(this.state.sheetId)
+    const isSheetNameValid = this.validateSheetName(this.state.sheetName)
     const isSubmitDisabled =
       isTitleValid !== true ||
       isSpreadsheetIdValid !== true ||
-      isSheetIdValid !== true
+      isSheetNameValid !== true
 
     return (
       <div className="row">
@@ -101,11 +101,11 @@ class EditView extends Component {
                   onChange={this.handleChangeSpreadsheetId}
                 />
                 <FormGroup
-                  id="sheetId"
-                  label="Sheet ID"
-                  value={this.state.sheetId}
-                  validate={this.validateSheetId}
-                  onChange={this.handleChangeSheetId}
+                  id="sheetName"
+                  label="Sheet Name"
+                  value={this.state.sheetName}
+                  validate={this.validateSheetName}
+                  onChange={this.handleChangeSheetName}
                 />
                 <div className="form-group no-margin-bottom">
                   <div className="col-sm-9 col-sm-offset-3">

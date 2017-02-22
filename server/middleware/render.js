@@ -3,6 +3,8 @@ import { renderToString } from 'react-dom/server'
 import match from 'react-router/lib/match'
 import RouterContext from 'react-router/lib/RouterContext'
 
+import Sheet from 'Server/models/Sheet'
+
 import createStore from 'App/store'
 import createRoutes from 'App/routes'
 import AppContainer from 'App/containers/AppContainer'
@@ -15,7 +17,7 @@ const renderFullPage = (html, preloadedState) => (
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta name="mobile-web-app-capable" content="yes">
-      <title>Sale lead</title>
+      <title>Sales Leads</title>
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
       <link rel="stylesheet" href="/app.css">
     </head>
@@ -31,16 +33,7 @@ const renderFullPage = (html, preloadedState) => (
   `
 )
 
-const renderApp = (req, res, next) => {
-  const initialState = {}
-
-  if (req.isAuthenticated()) {
-    initialState.user = {
-      username: req.user.username,
-      isAdmin: req.user.isAdmin(),
-    }
-  }
-
+const renderRoute = (req, res, next, initialState) => {
   const store = createStore(initialState)
 
   const routes = createRoutes(store)
@@ -69,6 +62,29 @@ const renderApp = (req, res, next) => {
 
     res.send(renderFullPage(html, preloadedState))
   })
+}
+
+const renderApp = (req, res, next) => {
+  const initialState = {}
+
+  if (!req.isAuthenticated()) {
+    renderRoute(req, res, next, initialState)
+  } else {
+    initialState.user = {
+      username: req.user.username,
+      isAdmin: req.user.isAdmin(),
+    }
+
+    Sheet
+      .find()
+      .exec((err, sheets) => {
+        if (!err) {
+          initialState.sheets = sheets
+        }
+
+        renderRoute(req, res, next, initialState)
+      })
+  }
 }
 
 export default renderApp

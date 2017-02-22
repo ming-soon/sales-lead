@@ -3,7 +3,7 @@ import * as types from 'App/actions/types'
 const initialState = {
   title: '',
   spreadsheetId: '',
-  sheetId: '',
+  sheetName: '',
 }
 
 export default (state = initialState, action) => {

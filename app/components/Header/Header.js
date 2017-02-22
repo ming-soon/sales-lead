@@ -14,7 +14,7 @@ const Header = ({ user, logoutUserRequest }) => ( // eslint-disable-line no-shad
           <span className="icon-bar" />
           <span className="icon-bar" />
         </button>
-        <IndexLink to="/" className="navbar-brand">Sales lead</IndexLink>
+        <IndexLink to="/" className="navbar-brand">Sales Leads</IndexLink>
       </div>
       <div className="collapse navbar-collapse" id="top-menu">
         {

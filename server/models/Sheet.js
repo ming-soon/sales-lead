@@ -3,7 +3,7 @@ import mongoose from 'mongoose'
 const sheetSchema = new mongoose.Schema({
   title: String,
   spreadsheetId: String,
-  sheetId: String,
+  sheetName: String,
 }, {
   timestamps: true,
 })

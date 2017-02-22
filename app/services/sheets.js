@@ -25,7 +25,7 @@ export const addSheet = sheet => (
     fetchPost('/sheets', {
       title: sheet.title,
       spreadsheetId: sheet.spreadsheetId,
-      sheetId: sheet.sheetId,
+      sheetName: sheet.sheetName,
     }).then((response) => {
       if (response.status !== 200) {
         response.json().then((json) => {
@@ -69,7 +69,7 @@ export const updateSheet = (id, sheet) => (
     fetchPut(`/sheets/${id}`, {
       title: sheet.title,
       spreadsheetId: sheet.spreadsheetId,
-      sheetId: sheet.sheetId,
+      sheetName: sheet.sheetName,
     }).then((response) => {
       if (response.status !== 200) {
         response.json().then((json) => {

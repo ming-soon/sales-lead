@@ -8,7 +8,7 @@ const ListTable = ({ sheets, onDelete }) => (
         <th>No.</th>
         <th>Title</th>
         <th>Spreadsheet ID</th>
-        <th>Sheet ID</th>
+        <th>Sheet Name</th>
         <th>Created At</th>
         <th />
       </tr>

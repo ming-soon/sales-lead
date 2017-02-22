@@ -5,6 +5,7 @@ import { isAuthenticated, isAdmin } from './middleware/passport'
 import AuthController from './controllers/auth'
 import UserController from './controllers/user'
 import SheetController from './controllers/sheet'
+import LeadController from './controllers/lead'
 
 const router = new express.Router()
 
@@ -23,5 +24,8 @@ router.post('/sheets', isAuthenticated, SheetController.postSheet)
 router.get('/sheets/:id', isAuthenticated, SheetController.getSheet)
 router.put('/sheets/:id', isAuthenticated, SheetController.putSheet)
 router.delete('/sheets/:id', isAuthenticated, SheetController.deleteSheet)
+
+router.get('/leads', isAuthenticated, LeadController.getLeads)
+router.post('/leads/bulk', isAuthenticated, LeadController.postLeadBulk)
 
 export default router

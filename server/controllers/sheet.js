@@ -15,7 +15,7 @@ const getSheets = (req, res, next) => {
 const postSheet = (req, res, next) => {
   req.assert('title', 'Title cannot be blank.').notEmpty()
   req.assert('spreadsheetId', 'Spreadsheet ID cannot be blank.').notEmpty()
-  req.assert('sheetId', 'Sheet ID cannot be blank.').notEmpty()
+  req.assert('sheetName', 'Sheet name cannot be blank.').notEmpty()
 
   req.getValidationResult().then((result) => { // eslint-disable-line consistent-return
     if (!result.isEmpty()) {
@@ -27,7 +27,7 @@ const postSheet = (req, res, next) => {
     const sheet = new Sheet({
       title: req.body.title,
       spreadsheetId: req.body.spreadsheetId,
-      sheetId: req.body.sheetId,
+      sheetName: req.body.sheetName,
     })
 
     sheet.save((err) => {
@@ -57,7 +57,7 @@ const getSheet = (req, res, next) => {
 const putSheet = (req, res, next) => {
   req.assert('title', 'Title cannot be blank.').notEmpty()
   req.assert('spreadsheetId', 'Spreadsheet ID cannot be blank.').notEmpty()
-  req.assert('sheetId', 'Sheet ID cannot be blank.').notEmpty()
+  req.assert('sheetName', 'Sheet name cannot be blank.').notEmpty()
 
   req.getValidationResult().then((result) => { // eslint-disable-line consistent-return
     if (!result.isEmpty()) {
@@ -70,7 +70,7 @@ const putSheet = (req, res, next) => {
     const payload = {
       title: req.body.title,
       spreadsheetId: req.body.spreadsheetId,
-      sheetId: req.body.sheetId,
+      sheetName: req.body.sheetName,
     }
     const options = {
       new: true, // Return the modified document.
