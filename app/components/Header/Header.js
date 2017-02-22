@@ -19,6 +19,16 @@ const Header = ({ user, logoutUserRequest }) => ( // eslint-disable-line no-shad
       <div className="collapse navbar-collapse" id="top-menu">
         {
           user &&
+          <ul className="nav navbar-nav">
+            <li>
+              <Link to="/sheets">
+                Google Sheets
+              </Link>
+            </li>
+          </ul>
+        }
+        {
+          user &&
           <ul className="nav navbar-nav navbar-right">
             {
               user.isAdmin &&

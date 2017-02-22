@@ -2,4 +2,8 @@
   .no-margin-bottom {
     margin-bottom: 0;
   }
+
+  .table .btn + .btn {
+    margin-left: 5px;
+  }
 }

@@ -1,14 +1,14 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import Link from 'react-router/lib/Link'
-import { loadUsersRequest, deleteUserRequest } from 'App/actions/users'
+import { loadSheetsRequest, deleteSheetRequest } from 'App/actions/sheets'
 import ListTable from '../components/ListTable'
 
 class ListContainer extends Component {
   static propTypes = {
-    loadUsersRequest: PropTypes.func.isRequired,
-    deleteUserRequest: PropTypes.func.isRequired,
-    users: PropTypes.arrayOf(PropTypes.object).isRequired,
+    loadSheetsRequest: PropTypes.func.isRequired,
+    deleteSheetRequest: PropTypes.func.isRequired,
+    sheets: PropTypes.arrayOf(PropTypes.object).isRequired,
   }
 
   constructor(props) {
@@ -18,37 +18,37 @@ class ListContainer extends Component {
   }
 
   componentDidMount() {
-    this.props.loadUsersRequest()
+    this.props.loadSheetsRequest()
   }
 
   onDelete(id) {
-    this.props.deleteUserRequest(id)
+    this.props.deleteSheetRequest(id)
   }
 
   render() {
-    const { users } = this.props
+    const { sheets } = this.props
 
     return (
       <div>
         <div className="page-header">
-          <h3>Users</h3>
+          <h3>Google Sheets</h3>
         </div>
         <div className="clearfix">
-          <Link to="users/add" className="btn btn-primary btn-sm pull-right">Add New User</Link>
+          <Link to="sheets/add" className="btn btn-primary btn-sm pull-right">Add New Sheet</Link>
         </div>
-        <ListTable users={users} onDelete={this.onDelete} />
+        <ListTable sheets={sheets} onDelete={this.onDelete} />
       </div>
     )
   }
 }
 
 const mapStateToProps = state => ({
-  users: state.users,
+  sheets: state.sheets,
 })
 
 const mapDispatchToProps = {
-  loadUsersRequest,
-  deleteUserRequest,
+  loadSheetsRequest,
+  deleteSheetRequest,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ListContainer)

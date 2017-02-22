@@ -40,9 +40,9 @@ class EditContainer extends Component {
     return (
       <div>
         <div className="page-header">
-          <h2>
+          <h3>
             {this.isAdding ? 'Add New User' : `Edit User - ${user.username}`}
-          </h2>
+          </h3>
         </div>
         <EditView
           isAdding={this.isAdding}

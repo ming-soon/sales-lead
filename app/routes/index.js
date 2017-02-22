@@ -6,6 +6,7 @@ import Home from './Home'
 import Login from './Login'
 import Profile from './Profile'
 import User from './User'
+import Sheet from './Sheet'
 import NotFound from './NotFound'
 
 export default (store) => {
@@ -45,6 +46,13 @@ export default (store) => {
       <Route path="login" component={Login} onEnter={requireGuest} />
       <Route onEnter={requireAuth}>
         <Route path="profile" component={Profile} />
+
+        <Route path="sheets">
+          <IndexRoute component={Sheet.List} />
+          <Route path="add" component={Sheet.Edit} />
+          <Route path=":id" component={Sheet.Edit} />
+        </Route>
+
         <Route path="users" onEnter={requireAdmin}>
           <IndexRoute component={User.List} />
           <Route path="add" component={User.Edit} />
