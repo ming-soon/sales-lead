@@ -2,15 +2,22 @@ import React, { PropTypes } from 'react'
 import { filterDate } from 'App/utils'
 
 const LeadRow = ({ index, company, name, email, phone, notes, createdAt }) => (
-  <tr>
-    <td>{index}</td>
-    <td>{company}</td>
-    <td>{name}</td>
-    <td>{email}</td>
-    <td>{phone}</td>
-    <td>{notes}</td>
-    <td>{filterDate(createdAt)}</td>
-  </tr>
+  <tbody>
+    <tr>
+      <td>{index}</td>
+      <td>{company}</td>
+      <td>{name}</td>
+      <td>{email}</td>
+      <td>{phone}</td>
+      <td>{filterDate(createdAt)}</td>
+    </tr>
+    <tr>
+      <td />
+      <td colSpan="5">
+        <strong>Notes:</strong> {notes}
+      </td>
+    </tr>
+  </tbody>
 )
 
 LeadRow.propTypes = {
