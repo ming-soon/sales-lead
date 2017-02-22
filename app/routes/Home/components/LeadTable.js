@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react'
 import LeadRow from './LeadRow'
+import Style from '../style.scss'
 
 const LeadTable = ({ leads, onDelete }) => (
   <table className="table table-striped table-hover">
@@ -11,7 +12,7 @@ const LeadTable = ({ leads, onDelete }) => (
         <th>Email</th>
         <th>Phone</th>
         <th>Created At</th>
-        <th />
+        <th className={Style.actionColumn} />
       </tr>
     </thead>
     {
