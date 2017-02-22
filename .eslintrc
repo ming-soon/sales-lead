@@ -1,0 +1,50 @@
+{
+  "parser": "babel-eslint",
+  "extends": "airbnb",
+  "plugins": [
+    "react",
+  ],
+  "env": {
+    "browser": true,
+    "node": true,
+    "mocha": true,
+    "es6": true
+  },
+  "settings": {
+    "import/resolver": {
+      "webpack": {
+        "config": "config/webpack.base.config.js"
+      }
+    }
+  },
+  "rules": {
+    "semi": [
+      2, "never"
+    ],
+    "no-console": [
+      2,
+      {
+        "allow": ["log"]
+      }
+    ],
+    "react/jsx-filename-extension": [
+      2,
+      {
+        "extensions": [".js", ".jsx"]
+      }
+    ],
+    "react/forbid-prop-types": [
+      2,
+      {
+        "forbid": [
+          "any",
+          "array"
+        ]
+      }
+    ],
+    "react/jsx-first-prop-new-line": [
+      2,
+      "multiline"
+    ]
+  }
+}
