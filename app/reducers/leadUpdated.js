@@ -6,6 +6,7 @@ const initialState = {
   email: '',
   phone: '',
   notes: '',
+  twitter_screen_name: '',
 }
 
 export default (state = initialState, action) => {

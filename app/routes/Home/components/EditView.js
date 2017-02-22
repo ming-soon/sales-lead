@@ -45,7 +45,7 @@ class EditView extends Component {
 
     return (
       <div className="row">
-        <div className="col-sm-6 col-sm-offset-3">
+        <div className="col-sm-8 col-sm-offset-2">
           <div className="panel panel-default">
             <div className="panel-body">
               <form className="form-horizontal" onSubmit={this.handleSubmit}>
@@ -79,6 +79,12 @@ class EditView extends Component {
                   label="Notes"
                   value={this.state.notes}
                   onChange={this.handleChange('notes')}
+                />
+                <FormGroup
+                  id="twitter_screen_name"
+                  label="Twitter Screen Name"
+                  value={this.state.twitter_screen_name}
+                  onChange={this.handleChange('twitter_screen_name')}
                 />
                 <div className="form-group no-margin-bottom">
                   <div className="col-sm-9 col-sm-offset-3">

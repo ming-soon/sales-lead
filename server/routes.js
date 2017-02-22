@@ -6,6 +6,7 @@ import AuthController from './controllers/auth'
 import UserController from './controllers/user'
 import SheetController from './controllers/sheet'
 import LeadController from './controllers/lead'
+import TwitterController from './controllers/twitter'
 
 const router = new express.Router()
 
@@ -31,5 +32,7 @@ router.post('/leads/bulk', isAuthenticated, LeadController.postLeadBulk)
 router.get('/leads/:id', isAuthenticated, LeadController.getLead)
 router.put('/leads/:id', isAuthenticated, LeadController.putLead)
 router.delete('/leads/:id', isAuthenticated, LeadController.deleteLead)
+
+router.get('/twitter/fetch', isAuthenticated, TwitterController.getFetch)
 
 export default router

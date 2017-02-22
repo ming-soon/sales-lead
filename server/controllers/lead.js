@@ -29,6 +29,7 @@ const postLead = (req, res, next) => {
       email: req.body.email,
       phone: req.body.phone,
       notes: req.body.notes,
+      twitter_screen_name: req.body.twitter_screen_name,
     })
 
     lead.save((err) => {
@@ -41,6 +42,9 @@ const postLead = (req, res, next) => {
   })
 }
 
+/**
+ * Import leads from Google Sheets.
+ */
 const postLeadBulk = (req, res, next) => {
   req.assert('leads', 'Leads cannot be blank.').notEmpty()
 
@@ -97,6 +101,9 @@ const getLead = (req, res, next) => {
   })
 }
 
+/**
+ * Update an existing lead.
+ */
 const putLead = (req, res, next) => {
   req.assert('company', 'Company cannot be blank.').notEmpty()
 
@@ -114,6 +121,7 @@ const putLead = (req, res, next) => {
       email: req.body.email,
       phone: req.body.phone,
       notes: req.body.notes,
+      twitter_screen_name: req.body.twitter_screen_name,
     }
     const options = {
       new: true, // Return the modified document.
