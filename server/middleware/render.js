@@ -3,13 +3,12 @@ import { renderToString } from 'react-dom/server'
 import match from 'react-router/lib/match'
 import RouterContext from 'react-router/lib/RouterContext'
 
-import Sheet from 'Server/models/Sheet'
-
 import createStore from 'App/store'
 import createRoutes from 'App/routes'
 import AppContainer from 'App/containers/AppContainer'
 
 import { _getLeads } from 'Server/controllers/lead'
+import { _getSheets } from 'Server/controllers/sheet'
 
 const renderFullPage = (html, preloadedState) => (
   `
@@ -77,21 +76,19 @@ const renderApp = (req, res, next) => {
       isAdmin: req.user.isAdmin(),
     }
 
-    Sheet
-      .find()
-      .exec((err, sheets) => {
+    _getSheets((err, sheets) => {
+      if (!err) {
+        initialState.sheets = sheets
+      }
+
+      _getLeads((err, leads) => { // eslint-disable-line no-shadow
         if (!err) {
-          initialState.sheets = sheets
+          initialState.leads = leads
         }
 
-        _getLeads((err, leads) => { // eslint-disable-line no-shadow
-          if (!err) {
-            initialState.leads = leads
-          }
-
-          renderRoute(req, res, next, initialState)
-        })
+        renderRoute(req, res, next, initialState)
       })
+    })
   }
 }
 

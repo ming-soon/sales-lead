@@ -18,7 +18,9 @@ class ListContainer extends Component {
   }
 
   componentDidMount() {
-    this.props.loadSheetsRequest()
+    if (this.props.sheets.length === 0) {
+      this.props.loadSheetsRequest()
+    }
   }
 
   onDelete(id) {

@@ -1,15 +1,25 @@
 import Sheet from 'Server/models/Sheet'
 
-const getSheets = (req, res, next) => {
+export const _getSheets = (cb) => {
   Sheet
     .find()
     .exec((err, sheets) => {
       if (err) {
-        return next(err)
+        return cb(err)
       }
 
-      return res.status(200).json(sheets)
+      return cb(null, sheets)
     })
+}
+
+const getSheets = (req, res, next) => {
+  _getSheets((err, sheets) => {
+    if (err) {
+      return next(err)
+    }
+
+    return res.status(200).json(sheets)
+  })
 }
 
 const postSheet = (req, res, next) => {
