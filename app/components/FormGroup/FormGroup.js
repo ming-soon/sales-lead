@@ -78,6 +78,18 @@ class FormGroup extends Component {
           }
         </select>
       )
+    } else if (type === 'textarea') {
+      control = (
+        <textarea
+          className="form-control"
+          id={id}
+          placeholder={this.props.label}
+          rows="3"
+          value={value}
+          onChange={this.handleChange}
+          onBlur={this.handleBlur}
+        />
+      )
     } else {
       control = (
         <input

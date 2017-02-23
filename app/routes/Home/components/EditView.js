@@ -76,8 +76,9 @@ class EditView extends Component {
                 />
                 <FormGroup
                   id="notes"
+                  type="textarea"
                   label="Notes"
-                  value={this.state.notes}
+                  value={this.state.notes || ''}
                   onChange={this.handleChange('notes')}
                 />
                 <FormGroup
