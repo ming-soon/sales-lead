@@ -12,7 +12,7 @@ import projectConfig from 'Config/project.config'
 
 import 'App/styles/app.scss'
 
-const initialState = window.__INITIAL_STATE__ // eslint-disable-line no-underscore-dangle
+const initialState = window.__INITIAL_STATE__
 const store = createStore(initialState)
 
 let routes = createRoutes(store)
@@ -32,7 +32,7 @@ const render = () => {
   )
 }
 
-if (projectConfig.globals.__DEV__) { // eslint-disable-line no-underscore-dangle
+if (projectConfig.globals.__DEV__) {
   if (module.hot) {
     module.hot.accept('App/routes', () => {
       routes = require('App/routes').default(store) // eslint-disable-line global-require

@@ -17,7 +17,6 @@ const ListTable = ({ users, onDelete }) => (
         users.length
         ? (
           users.map((user, index) => (
-            // eslint-disable-next-line no-underscore-dangle
             <ListItem key={user._id} index={index + 1} {...user} onDelete={onDelete} />
           ))
         )

@@ -6,7 +6,7 @@ import seed from './seed'
 
 hook(cssModulesConfig)
 
-if (projectConfig.globals.__DEV__) { // eslint-disable-line no-underscore-dangle
+if (projectConfig.globals.__DEV__) {
   // FIXME: require.extensions is deprecated.
   require.extensions['.png'] = () => {}
 }

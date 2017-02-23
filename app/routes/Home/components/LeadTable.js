@@ -19,7 +19,6 @@ const LeadTable = ({ leads, onDelete }) => (
       leads.length
       ? (
         leads.map((lead, index) => (
-          // eslint-disable-next-line no-underscore-dangle
           <LeadRow key={lead._id} index={index + 1} {...lead} onDelete={onDelete} />
         ))
       )

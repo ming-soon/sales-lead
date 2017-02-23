@@ -67,7 +67,7 @@ const createServer = (middlewares = []) => {
   app.use('/api', routes)
 
   // Webpack hot loader.
-  if (projectConfig.globals.__DEV__) { // eslint-disable-line no-underscore-dangle
+  if (projectConfig.globals.__DEV__) {
     app.use(hotReloader())
   }
 

@@ -51,7 +51,7 @@ const postChangePassword = (req, res, next) => {
       return res.status(400).json({ message })
     }
 
-    // eslint-disable-next-line consistent-return, no-underscore-dangle
+    // eslint-disable-next-line consistent-return
     User.findById(req.user._id, (err, user) => {
       if (err) {
         return next(err)

@@ -65,7 +65,6 @@ const mapStateToProps = (state, ownProps) => {
       twitter_screen_name: '',
     }
   } else {
-    // eslint-disable-next-line no-underscore-dangle
     lead = state.leads.find(_lead => _lead._id === ownProps.params.id)
   }
 

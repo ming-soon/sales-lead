@@ -18,7 +18,6 @@ const ListTable = ({ sheets, onDelete }) => (
         sheets.length
         ? (
           sheets.map((sheet, index) => (
-            // eslint-disable-next-line no-underscore-dangle
             <ListItem key={sheet._id} index={index + 1} {...sheet} onDelete={onDelete} />
           ))
         )

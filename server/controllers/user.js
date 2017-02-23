@@ -5,7 +5,7 @@ const getUsers = (req, res, next) => {
   User
     .find({
       _id: {
-        $ne: req.user._id, // eslint-disable-line no-underscore-dangle
+        $ne: req.user._id,
       },
     })
     .select('_id username type createdAt')
@@ -53,7 +53,7 @@ const postUser = (req, res, next) => {
         }
 
         return res.status(200).json({
-          _id: user._id, // eslint-disable-line no-underscore-dangle
+          _id: user._id,
           username: user.username,
           type: user.type,
           createdAt: user.createdAt,
@@ -74,7 +74,7 @@ const getUser = (req, res, next) => {
     }
 
     return res.status(200).json({
-      _id: user._id, // eslint-disable-line no-underscore-dangle
+      _id: user._id,
       username: user.username,
       type: user.type,
       createdAt: user.createdAt,
@@ -108,7 +108,7 @@ const putUser = (req, res, next) => {
       }
 
       return res.status(200).json({
-        _id: user._id, // eslint-disable-line no-underscore-dangle
+        _id: user._id,
         username: user.username,
         type: user.type,
         createdAt: user.createdAt,

@@ -27,6 +27,9 @@
         "allow": ["log"]
       }
     ],
+    "no-underscore-dangle": [
+      0
+    ],
     "react/jsx-filename-extension": [
       2,
       {
