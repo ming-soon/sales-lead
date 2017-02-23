@@ -99,7 +99,9 @@ class HomeContainer extends Component {
    * Called when a Delete button is clicked on leads rows.
    */
   onDelete(id) {
-    this.props.deleteLeadRequest(id)
+    if (confirm('Are you sure you want to delete the lead?')) {
+      this.props.deleteLeadRequest(id)
+    }
   }
 
   checkAuth = (immediate, callback) => {

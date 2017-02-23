@@ -30,6 +30,9 @@
     "no-underscore-dangle": [
       0
     ],
+    "no-alert": [
+      0
+    ],
     "react/jsx-filename-extension": [
       2,
       {
