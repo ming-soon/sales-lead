@@ -13,6 +13,12 @@ export default (state = initialState, action) => {
         ...state,
         action.lead,
       ]
+    case types.GET_LEAD:
+      return [
+        // eslint-disable-next-line no-underscore-dangle
+        ...(state.filter(lead => (lead._id !== action.lead._id))),
+        action.lead,
+      ]
     case types.UPDATE_LEAD:
       return [
         // eslint-disable-next-line no-underscore-dangle

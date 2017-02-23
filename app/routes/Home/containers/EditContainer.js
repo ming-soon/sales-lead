@@ -53,9 +53,26 @@ class EditContainer extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  lead: state.leadUpdated,
-})
+const mapStateToProps = (state, ownProps) => {
+  let lead
+  if (ownProps.params.id === undefined) {
+    lead = {
+      company: '',
+      name: '',
+      email: '',
+      phone: '',
+      notes: '',
+      twitter_screen_name: '',
+    }
+  } else {
+    // eslint-disable-next-line no-underscore-dangle
+    lead = state.leads.find(_lead => _lead._id === ownProps.params.id)
+  }
+
+  return {
+    lead,
+  }
+}
 
 const mapDispatchToProps = {
   addLeadRequest,
