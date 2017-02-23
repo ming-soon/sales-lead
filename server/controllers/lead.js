@@ -1,7 +1,7 @@
 import reduce from 'async/reduce'
 import Lead from 'Server/models/Lead'
 
-const getLeads = (req, res, next) => {
+export const _getLeads = (cb) => {
   Lead
     .find()
     .populate({
@@ -24,11 +24,21 @@ const getLeads = (req, res, next) => {
     })
     .exec((err, leads) => {
       if (err) {
-        return next(err)
+        return cb(err)
       }
 
-      return res.status(200).json(leads)
+      return cb(null, leads)
     })
+}
+
+const getLeads = (req, res, next) => {
+  _getLeads((err, leads) => {
+    if (err) {
+      return next(err)
+    }
+
+    return res.status(200).json(leads)
+  })
 }
 
 const postLead = (req, res, next) => {

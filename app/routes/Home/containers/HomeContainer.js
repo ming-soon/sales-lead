@@ -34,8 +34,11 @@ class HomeContainer extends Component {
   }
 
   componentDidMount() {
-    // Load leads.
-    this.props.loadLeadsRequest()
+    // Load only when needed.
+    if (this.props.leads.length === 0) {
+      // Load leads.
+      this.props.loadLeadsRequest()
+    }
 
     // Load Google API client library.
     window.gapi.load('client', () => {

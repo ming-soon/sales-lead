@@ -9,6 +9,8 @@ import createStore from 'App/store'
 import createRoutes from 'App/routes'
 import AppContainer from 'App/containers/AppContainer'
 
+import { _getLeads } from 'Server/controllers/lead'
+
 const renderFullPage = (html, preloadedState) => (
   `
   <!doctype html>
@@ -82,7 +84,13 @@ const renderApp = (req, res, next) => {
           initialState.sheets = sheets
         }
 
-        renderRoute(req, res, next, initialState)
+        _getLeads((err, leads) => { // eslint-disable-line no-shadow
+          if (!err) {
+            initialState.leads = leads
+          }
+
+          renderRoute(req, res, next, initialState)
+        })
       })
   }
 }
