@@ -33,6 +33,6 @@ router.get('/leads/:id', isAuthenticated, LeadController.getLead)
 router.put('/leads/:id', isAuthenticated, LeadController.putLead)
 router.delete('/leads/:id', isAuthenticated, LeadController.deleteLead)
 
-router.get('/twitter/fetch', isAuthenticated, TwitterController.getFetch)
+router.get('/leads/tweets/read', isAuthenticated, TwitterController.readTweets)
 
 export default router

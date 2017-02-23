@@ -55,7 +55,6 @@ export function* updateLeadRequest(action) {
   }
 }
 
-
 export function* deleteLeadRequest(action) {
   try {
     yield call(Api.deleteLead, action.id)
@@ -66,6 +65,15 @@ export function* deleteLeadRequest(action) {
   }
 }
 
+export function* readTweetsRequest(action) {
+  try {
+    yield call(Api.readTweets)
+    yield call(action.resolve)
+  } catch (e) {
+    yield put(showMessageRequest(e))
+    yield call(action.reject)
+  }
+}
 
 export function* watchImportLeadsRequest() {
   yield takeEvery(types.IMPORT_LEADS_REQUEST, importLeadsRequest)
@@ -89,4 +97,8 @@ export function* watchUpdateLeadRequest() {
 
 export function* watchDeleteLeadRequest() {
   yield takeEvery(types.DELETE_LEAD_REQUEST, deleteLeadRequest)
+}
+
+export function* watchReadTweetsRequest() {
+  yield takeEvery(types.READ_TWEETS_REQUEST, readTweetsRequest)
 }

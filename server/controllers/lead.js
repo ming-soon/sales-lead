@@ -2,8 +2,17 @@ import reduce from 'async/reduce'
 import Lead from 'Server/models/Lead'
 
 const getLeads = (req, res, next) => {
+  // Set the limit of recent tweets to two weeks ago.
+  const twoWeekAgo = new Date(new Date().getTime() - (14 * 24 * 3600 * 1000))
+
   Lead
     .find()
+    .populate({
+      path: 'tweets',
+      match: {
+        created_at: { $gte: twoWeekAgo },
+      },
+    })
     .exec((err, leads) => {
       if (err) {
         return next(err)

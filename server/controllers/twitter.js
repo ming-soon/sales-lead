@@ -66,24 +66,29 @@ const getTimeline = (client, lead, cb) => {
         text: tweet.text,
         hashtags,
         created_at: tweet.created_at,
+        lead: lead._id,
       })
     })
-
-    // Save the oldest Tweet ID.
-    lead.tweet_last_id = tweets[0].id_str // eslint-disable-line no-param-reassign
-    lead.save()
 
     Tweet.insertMany(tweetObjects, (err, tweetsAdded) => { // eslint-disable-line no-shadow
       if (err) {
         return cb(err, [])
       }
 
+      // Save the oldest Tweet ID.
+      lead.tweet_last_id = tweets[0].id_str // eslint-disable-line no-param-reassign
+
+      // Save tweets to leads.
+      lead.tweets.push(...tweetsAdded)
+
+      lead.save()
+
       return cb(null, tweetsAdded)
     })
   })
 }
 
-const getFetch = (req, res, next) => {
+const readTweets = (req, res, next) => {
   obtainToken((err, token) => { // eslint-disable-line consistent-return
     if (err) {
       return next(err)
@@ -123,5 +128,5 @@ const getFetch = (req, res, next) => {
 }
 
 export default {
-  getFetch,
+  readTweets,
 }

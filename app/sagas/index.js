@@ -2,7 +2,8 @@ import { fork } from 'redux-saga/effects'
 import { watchLoginUserRequest, watchLogoutUserRequest, watchChangePasswordRequest } from './user'
 import { watchLoadUsersRequest, watchAddUserRequest, watchGetUserRequest, watchUpdateUserRequest, watchDeleteUserRequest } from './users'
 import { watchLoadSheetsRequest, watchAddSheetRequest, watchGetSheetRequest, watchUpdateSheetRequest, watchDeleteSheetRequest } from './sheets'
-import { watchImportLeadsRequest, watchLoadLeadsRequest, watchAddLeadRequest, watchGetLeadRequest, watchUpdateLeadRequest, watchDeleteLeadRequest } from './leads'
+import { watchImportLeadsRequest, watchLoadLeadsRequest, watchAddLeadRequest,
+  watchGetLeadRequest, watchUpdateLeadRequest, watchDeleteLeadRequest, watchReadTweetsRequest } from './leads'
 import { watchShowMessageRequest } from './messages'
 
 export default function* rootSaga() {
@@ -30,6 +31,7 @@ export default function* rootSaga() {
     fork(watchGetLeadRequest),
     fork(watchUpdateLeadRequest),
     fork(watchDeleteLeadRequest),
+    fork(watchReadTweetsRequest),
     // Messages.
     fork(watchShowMessageRequest),
   ]

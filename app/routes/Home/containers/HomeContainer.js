@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { GOOGLE_API_CLIENT_ID, GOOGLE_API_SCOPE } from 'Server/constants'
-import { importLeadsRequest, loadLeadsRequest, deleteLeadRequest } from 'App/actions/leads'
+import { importLeadsRequest, loadLeadsRequest, deleteLeadRequest, readTweetsRequest } from 'App/actions/leads'
 import HomeView from '../components/HomeView'
 
 class HomeContainer extends Component {
@@ -11,6 +11,7 @@ class HomeContainer extends Component {
     importLeadsRequest: PropTypes.func.isRequired,
     loadLeadsRequest: PropTypes.func.isRequired,
     deleteLeadRequest: PropTypes.func.isRequired,
+    readTweetsRequest: PropTypes.func.isRequired,
   }
 
   constructor(props) {
@@ -19,12 +20,14 @@ class HomeContainer extends Component {
     this.state = {
       isGoogleApiLoaded: false,
       isImporting: false,
+      isReadingTweets: false,
     }
 
     this.onImport = this.onImport.bind(this)
+    this.onReadTweets = this.onReadTweets.bind(this)
+    this.onDelete = this.onDelete.bind(this)
     this.handleAuth = this.handleAuth.bind(this)
     this.importLeads = this.importLeads.bind(this)
-    this.onDelete = this.onDelete.bind(this)
   }
 
   componentDidMount() {
@@ -44,6 +47,29 @@ class HomeContainer extends Component {
    */
   onImport() {
     this.checkAuth(true, this.handleAuth)
+  }
+
+  /**
+   * Called when a Read Tweets button is clicked.
+   */
+  onReadTweets() {
+    this.setState({
+      isReadingTweets: true,
+    })
+
+    const promise = new Promise((resolve, reject) => {
+      this.props.readTweetsRequest(resolve, reject)
+    })
+
+    promise.then(() => {
+      this.setState({
+        isReadingTweets: false,
+      })
+
+      // Re-load leads.
+      // FIXME: Find a better way.
+      this.props.loadLeadsRequest()
+    })
   }
 
   /**
@@ -127,14 +153,16 @@ class HomeContainer extends Component {
    * Render home page.
    */
   render() {
-    const { isGoogleApiLoaded, isImporting } = this.state
+    const { isGoogleApiLoaded, isImporting, isReadingTweets } = this.state
     const { leads } = this.props
 
     return (
       <HomeView
         isGoogleApiLoaded={isGoogleApiLoaded}
         isImporting={isImporting}
+        isReadingTweets={isReadingTweets}
         onImport={this.onImport}
+        onReadTweets={this.onReadTweets}
         onDelete={this.onDelete}
         leads={leads}
       />
@@ -151,6 +179,7 @@ const mapDispatchToProps = {
   importLeadsRequest,
   loadLeadsRequest,
   deleteLeadRequest,
+  readTweetsRequest,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeContainer)

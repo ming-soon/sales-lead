@@ -109,3 +109,23 @@ export const deleteLead = id => (
     })
   })
 )
+
+export const readTweets = () => (
+  new Promise((resolve, reject) => {
+    fetchGet('/leads/tweets/read').then((response) => {
+      if (response.status !== 200) {
+        response.json().then((json) => {
+          let message = json.message
+          if (Array.isArray(message)) {
+            message = message.join()
+          }
+          reject(message)
+        })
+      } else {
+        response.json().then(() => {
+          resolve()
+        })
+      }
+    })
+  })
+)

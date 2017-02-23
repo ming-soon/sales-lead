@@ -60,3 +60,9 @@ export const deleteLead = id => ({
   type: types.DELETE_LEAD,
   id,
 })
+
+export const readTweetsRequest = (resolve, reject) => ({
+  type: types.READ_TWEETS_REQUEST,
+  resolve,
+  reject,
+})
