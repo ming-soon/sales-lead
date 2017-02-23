@@ -22,7 +22,9 @@ class ListContainer extends Component {
   }
 
   onDelete(id) {
-    this.props.deleteSheetRequest(id)
+    if (confirm('Are you sure you want to delete the sheet?')) {
+      this.props.deleteSheetRequest(id)
+    }
   }
 
   render() {
