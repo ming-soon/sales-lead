@@ -3,7 +3,8 @@ import { watchLoginUserRequest, watchLogoutUserRequest, watchChangePasswordReque
 import { watchLoadUsersRequest, watchAddUserRequest, watchGetUserRequest, watchUpdateUserRequest, watchDeleteUserRequest } from './users'
 import { watchLoadSheetsRequest, watchAddSheetRequest, watchGetSheetRequest, watchUpdateSheetRequest, watchDeleteSheetRequest } from './sheets'
 import { watchImportLeadsRequest, watchLoadLeadsRequest, watchAddLeadRequest,
-  watchGetLeadRequest, watchUpdateLeadRequest, watchDeleteLeadRequest, watchReadTweetsRequest } from './leads'
+  watchGetLeadRequest, watchUpdateLeadRequest, watchDeleteLeadRequest,
+  watchReadTweetsRequest, watchReadGoogleNewsRequest } from './leads'
 import { watchShowMessageRequest } from './messages'
 
 export default function* rootSaga() {
@@ -32,6 +33,7 @@ export default function* rootSaga() {
     fork(watchUpdateLeadRequest),
     fork(watchDeleteLeadRequest),
     fork(watchReadTweetsRequest),
+    fork(watchReadGoogleNewsRequest),
     // Messages.
     fork(watchShowMessageRequest),
   ]

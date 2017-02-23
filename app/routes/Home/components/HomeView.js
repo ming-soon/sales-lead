@@ -2,8 +2,8 @@ import React, { PropTypes } from 'react'
 import Link from 'react-router/lib/Link'
 import LeadTable from './LeadTable'
 
-const HomeView = ({ isGoogleApiLoaded, isImporting, isReadingTweets,
-  onImport, onReadTweets, onDelete, leads }) => (
+const HomeView = ({ isGoogleApiLoaded, isImporting, isReadingTweets, isReadingGoogleNews,
+  onImport, onReadTweets, onReadGoogleNews, onDelete, leads }) => (
     <div>
       <div className="page-header">
         <h3>Sales Leads</h3>
@@ -15,6 +15,9 @@ const HomeView = ({ isGoogleApiLoaded, isImporting, isReadingTweets,
         </button>
         <button type="button" className="btn btn-warning btn-sm" onClick={onReadTweets} disabled={isReadingTweets}>
           { !isReadingTweets ? 'Read Tweets' : 'Reading...' }
+        </button>
+        <button type="button" className="btn btn-warning btn-sm" onClick={onReadGoogleNews} disabled={isReadingGoogleNews}>
+          { !isReadingGoogleNews ? 'Read News' : 'Reading...' }
         </button>
       </div>
       <LeadTable
@@ -29,8 +32,10 @@ HomeView.propTypes = {
   isGoogleApiLoaded: PropTypes.bool.isRequired,
   isImporting: PropTypes.bool.isRequired,
   isReadingTweets: PropTypes.bool.isRequired,
+  isReadingGoogleNews: PropTypes.bool.isRequired,
   onImport: PropTypes.func.isRequired,
   onReadTweets: PropTypes.func.isRequired,
+  onReadGoogleNews: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
   leads: PropTypes.arrayOf(PropTypes.object).isRequired,
 }

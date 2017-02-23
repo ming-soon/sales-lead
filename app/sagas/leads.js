@@ -75,6 +75,16 @@ export function* readTweetsRequest(action) {
   }
 }
 
+export function* readGoogleNewsRequest(action) {
+  try {
+    yield call(Api.readGoogleNews)
+    yield call(action.resolve)
+  } catch (e) {
+    yield put(showMessageRequest(e))
+    yield call(action.reject)
+  }
+}
+
 export function* watchImportLeadsRequest() {
   yield takeEvery(types.IMPORT_LEADS_REQUEST, importLeadsRequest)
 }
@@ -101,4 +111,8 @@ export function* watchDeleteLeadRequest() {
 
 export function* watchReadTweetsRequest() {
   yield takeEvery(types.READ_TWEETS_REQUEST, readTweetsRequest)
+}
+
+export function* watchReadGoogleNewsRequest() {
+  yield takeEvery(types.READ_GOOGLE_NEWS_REQUEST, readGoogleNewsRequest)
 }

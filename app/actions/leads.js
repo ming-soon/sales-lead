@@ -66,3 +66,9 @@ export const readTweetsRequest = (resolve, reject) => ({
   resolve,
   reject,
 })
+
+export const readGoogleNewsRequest = (resolve, reject) => ({
+  type: types.READ_GOOGLE_NEWS_REQUEST,
+  resolve,
+  reject,
+})

@@ -7,6 +7,7 @@ import UserController from './controllers/user'
 import SheetController from './controllers/sheet'
 import LeadController from './controllers/lead'
 import TwitterController from './controllers/twitter'
+import GoogleController from './controllers/google'
 
 const router = new express.Router()
 
@@ -34,5 +35,6 @@ router.put('/leads/:id', isAuthenticated, LeadController.putLead)
 router.delete('/leads/:id', isAuthenticated, LeadController.deleteLead)
 
 router.get('/leads/tweets/read', isAuthenticated, TwitterController.readTweets)
+router.get('/leads/google_news/read', isAuthenticated, GoogleController.readGoogleNews)
 
 export default router

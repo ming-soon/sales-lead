@@ -129,3 +129,23 @@ export const readTweets = () => (
     })
   })
 )
+
+export const readGoogleNews = () => (
+  new Promise((resolve, reject) => {
+    fetchGet('/leads/google_news/read').then((response) => {
+      if (response.status !== 200) {
+        response.json().then((json) => {
+          let message = json.message
+          if (Array.isArray(message)) {
+            message = message.join()
+          }
+          reject(message)
+        })
+      } else {
+        response.json().then(() => {
+          resolve()
+        })
+      }
+    })
+  })
+)
