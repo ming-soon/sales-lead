@@ -11,6 +11,11 @@ export default (state = initialState, action) => {
         ...state,
         action.sheet,
       ]
+    case types.GET_SHEET:
+      return [
+        ...(state.filter(sheet => (sheet._id !== action.sheet._id))),
+        action.sheet,
+      ]
     case types.UPDATE_SHEET:
       return [
         ...(state.filter(sheet => (sheet._id !== action.id))),

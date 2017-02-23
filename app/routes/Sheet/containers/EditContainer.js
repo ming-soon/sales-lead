@@ -64,9 +64,22 @@ class EditContainer extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  sheet: state.sheetUpdated,
-})
+const mapStateToProps = (state, ownProps) => {
+  let sheet
+  if (ownProps.params.id === undefined) {
+    sheet = {
+      title: '',
+      spreadsheetId: '',
+      sheetName: '',
+    }
+  } else {
+    sheet = state.sheets.find(_sheet => _sheet._id === ownProps.params.id)
+  }
+
+  return {
+    sheet,
+  }
+}
 
 const mapDispatchToProps = {
   addSheetRequest,
