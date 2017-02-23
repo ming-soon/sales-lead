@@ -12,9 +12,6 @@ class EditView extends Component {
 
     this.state = { ...this.props.sheet }
 
-    this.handleChangeTitle = this.handleChangeTitle.bind(this)
-    this.handleChangeSpreadsheetId = this.handleChangeSpreadsheetId.bind(this)
-    this.handleChangeSheetName = this.handleChangeSheetName.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
@@ -45,25 +42,10 @@ class EditView extends Component {
     return true
   }
 
-  handleChangeTitle(title) {
-    this.setState({
-      ...this.state,
-      title,
-    })
-  }
-
-  handleChangeSpreadsheetId(spreadsheetId) {
-    this.setState({
-      ...this.state,
-      spreadsheetId,
-    })
-  }
-
-  handleChangeSheetName(sheetName) {
-    this.setState({
-      ...this.state,
-      sheetName,
-    })
+  handleChange = field => (value) => {
+    const newState = {}
+    newState[field] = value
+    this.setState(newState)
   }
 
   handleSubmit(event) {
@@ -91,21 +73,21 @@ class EditView extends Component {
                   label="Title"
                   value={this.state.title}
                   validate={this.validateTitle}
-                  onChange={this.handleChangeTitle}
+                  onChange={this.handleChange('title')}
                 />
                 <FormGroup
                   id="spreadsheetId"
                   label="Spreadsheet ID"
                   value={this.state.spreadsheetId}
                   validate={this.validateSpreadsheetId}
-                  onChange={this.handleChangeSpreadsheetId}
+                  onChange={this.handleChange('spreadsheetId')}
                 />
                 <FormGroup
                   id="sheetName"
                   label="Sheet Name"
                   value={this.state.sheetName}
                   validate={this.validateSheetName}
-                  onChange={this.handleChangeSheetName}
+                  onChange={this.handleChange('sheetName')}
                 />
                 <div className="form-group no-margin-bottom">
                   <div className="col-sm-9 col-sm-offset-3">
