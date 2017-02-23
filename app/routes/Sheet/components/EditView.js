@@ -82,7 +82,7 @@ class EditView extends Component {
 
     return (
       <div className="row">
-        <div className="col-sm-6 col-sm-offset-3">
+        <div className="col-sm-8 col-sm-offset-2">
           <div className="panel panel-default">
             <div className="panel-body">
               <form className="form-horizontal" onSubmit={this.handleSubmit}>
@@ -109,7 +109,7 @@ class EditView extends Component {
                 />
                 <div className="form-group no-margin-bottom">
                   <div className="col-sm-9 col-sm-offset-3">
-                    <button type="submit" className="btn btn-default" disabled={isSubmitDisabled}>Save</button>
+                    <button type="submit" className="btn btn-primary" disabled={isSubmitDisabled}>Save</button>
                   </div>
                 </div>
               </form>

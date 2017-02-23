@@ -30,11 +30,11 @@ class ListContainer extends Component {
 
     return (
       <div>
-        <div className="page-header">
-          <h3>Users</h3>
-        </div>
-        <div className="clearfix">
-          <Link to="users/add" className="btn btn-primary btn-sm pull-right">Add New User</Link>
+        <div className="page-header clearfix">
+          <h3 className="pull-left">Users</h3>
+          <div className="pull-right text-right">
+            <Link to="users/add" className="btn btn-primary btn-sm">Add New User</Link>
+          </div>
         </div>
         <ListTable users={users} onDelete={this.onDelete} />
       </div>

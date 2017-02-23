@@ -123,7 +123,7 @@ class EditView extends Component {
                 />
                 <div className="form-group no-margin-bottom">
                   <div className="col-sm-9 col-sm-offset-3">
-                    <button type="submit" className="btn btn-default" disabled={isSubmitDisabled}>Save</button>
+                    <button type="submit" className="btn btn-primary" disabled={isSubmitDisabled}>Save</button>
                   </div>
                 </div>
               </form>

@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
+import Link from 'react-router/lib/Link'
 import { addSheetRequest, getSheetRequest, updateSheetRequest } from 'App/actions/sheets'
 import EditView from '../components/EditView'
 
@@ -39,10 +40,13 @@ class EditContainer extends Component {
 
     return (
       <div>
-        <div className="page-header">
-          <h3>
+        <div className="page-header clearfix">
+          <h3 className="pull-left">
             {this.isAdding ? 'Add New Sheet' : 'Edit Sheet'}
           </h3>
+          <div className="pull-right text-right">
+            <Link to="/sheets" className="btn btn-default btn-sm">Go Back</Link>
+          </div>
         </div>
         <div>
           <p>

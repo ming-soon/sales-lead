@@ -30,11 +30,11 @@ class ListContainer extends Component {
 
     return (
       <div>
-        <div className="page-header">
-          <h3>Google Sheets</h3>
-        </div>
-        <div className="clearfix">
-          <Link to="sheets/add" className="btn btn-primary btn-sm pull-right">Add New Sheet</Link>
+        <div className="page-header clearfix">
+          <h3 className="pull-left">Google Sheets</h3>
+          <div className="pull-right text-right">
+            <Link to="sheets/add" className="btn btn-primary btn-sm">Add New Sheet</Link>
+          </div>
         </div>
         <ListTable sheets={sheets} onDelete={this.onDelete} />
       </div>

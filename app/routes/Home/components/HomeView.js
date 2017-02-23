@@ -5,20 +5,20 @@ import LeadTable from './LeadTable'
 const HomeView = ({ isGoogleApiLoaded, isImporting, isReadingTweets, isReadingGoogleNews,
   onImport, onReadTweets, onReadGoogleNews, onDelete, leads }) => (
     <div>
-      <div className="page-header">
-        <h3>Sales Leads</h3>
-      </div>
-      <div className="text-right clearfix">
-        <Link to="leads/add" className="btn btn-primary btn-sm">Add New Lead</Link>
-        <button type="button" className="btn btn-danger btn-sm" onClick={onImport} disabled={!isGoogleApiLoaded || isImporting}>
-          { !isImporting ? 'Import Leads' : 'Importing...' }
-        </button>
-        <button type="button" className="btn btn-warning btn-sm" onClick={onReadTweets} disabled={isReadingTweets}>
-          { !isReadingTweets ? 'Read Tweets' : 'Reading...' }
-        </button>
-        <button type="button" className="btn btn-warning btn-sm" onClick={onReadGoogleNews} disabled={isReadingGoogleNews}>
-          { !isReadingGoogleNews ? 'Read News' : 'Reading...' }
-        </button>
+      <div className="page-header clearfix">
+        <h3 className="pull-left">Sales Leads</h3>
+        <div className="text-right pull-right">
+          <Link to="leads/add" className="btn btn-primary btn-sm">Add New Lead</Link>
+          <button type="button" className="btn btn-danger btn-sm" onClick={onImport} disabled={!isGoogleApiLoaded || isImporting}>
+            { !isImporting ? 'Import Leads' : 'Importing...' }
+          </button>
+          <button type="button" className="btn btn-warning btn-sm" onClick={onReadTweets} disabled={isReadingTweets}>
+            { !isReadingTweets ? 'Read Tweets' : 'Reading...' }
+          </button>
+          <button type="button" className="btn btn-warning btn-sm" onClick={onReadGoogleNews} disabled={isReadingGoogleNews}>
+            { !isReadingGoogleNews ? 'Read News' : 'Reading...' }
+          </button>
+        </div>
       </div>
       <LeadTable
         leads={leads}
