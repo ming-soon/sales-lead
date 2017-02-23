@@ -6,10 +6,12 @@ const LeadRow = ({ _id, index, company, name, email, phone,
     <tbody>
       <tr>
         <td>{index}</td>
-        <td>{company}</td>
-        <td>{name}</td>
-        <td>{email}</td>
-        <td>{phone}</td>
+        <th>{company}</th>
+        <td>
+          <strong>{name}</strong><br />
+          <a href={`mailto:${email}`}>{email}</a><br />
+          {phone}
+        </td>
         <td>{tweets.length}</td>
         <td>{google_news.length}</td>
         <td className="text-right">
@@ -21,8 +23,8 @@ const LeadRow = ({ _id, index, company, name, email, phone,
       </tr>
       <tr>
         <td />
-        <td colSpan="6">
-          <strong>Notes:</strong> {notes}
+        <td colSpan="4">
+          Notes: {notes}
         </td>
         <td />
       </tr>
