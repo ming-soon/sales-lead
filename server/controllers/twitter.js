@@ -50,7 +50,7 @@ const getTimeline = (client, lead, cb) => {
     params.since_id = lead.tweet_last_id
   }
 
-  client.get('statuses/user_timeline', params, (err, tweets) => { // eslint-disable-line consistent-return
+  client.get('statuses/user_timeline', params, (err, tweets) => {
     if (err) {
       return cb(err, [])
     }
@@ -89,14 +89,14 @@ const getTimeline = (client, lead, cb) => {
 }
 
 const readTweets = (req, res, next) => {
-  obtainToken((err, token) => { // eslint-disable-line consistent-return
+  obtainToken((err, token) => {
     if (err) {
       return next(err)
     }
 
     Lead
       .find()
-      .exec((err, leads) => { // eslint-disable-line no-shadow, consistent-return
+      .exec((err, leads) => { // eslint-disable-line no-shadow
         if (err) {
           return next(err)
         }

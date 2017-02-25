@@ -33,6 +33,9 @@
     "no-alert": [
       0
     ],
+    "consistent-return": [
+      0
+    ],
     "react/jsx-filename-extension": [
       2,
       {

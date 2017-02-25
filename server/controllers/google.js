@@ -6,7 +6,7 @@ import GoogleNews from 'Server/models/GoogleNews'
 const getGoogleNews = (lead, cb) => {
   const rssUrl = `https://news.google.com/news?q=${encodeURIComponent(lead.company)}&output=rss`
 
-  parser.parseURL(rssUrl, (err, parsed) => { // eslint-disable-line no-shadow, consistent-return
+  parser.parseURL(rssUrl, (err, parsed) => { // eslint-disable-line no-shadow
     if (err) {
       return cb(err, [])
     }
@@ -56,7 +56,7 @@ const readGoogleNews = (req, res, next) => {
   Lead
     .find()
     .populate('google_news')
-    .exec((err, leads) => { // eslint-disable-line no-shadow, consistent-return
+    .exec((err, leads) => { // eslint-disable-line no-shadow
       if (err) {
         return next(err)
       }
