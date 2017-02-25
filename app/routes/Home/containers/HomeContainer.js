@@ -110,21 +110,22 @@ class HomeContainer extends Component {
   onChangeSortBy(event) {
     const sortBy = event.target.value
 
-    let leads = [...this.props.leads]
-    if (this.state.sortBy !== 'none') {
-      leads = leads.sort((leadA, leadB) => {
-        if (sortBy === 'news') {
-          const newsA = leadA.google_news ? leadA.google_news.length : 0
-          const newsB = leadB.google_news ? leadB.google_news.length : 0
-          return newsB - newsA
-        }
-
-        // Fallback to tweets.
+    const leads = [...this.props.leads].sort((leadA, leadB) => {
+      if (sortBy === 'news') {
+        const newsA = leadA.google_news ? leadA.google_news.length : 0
+        const newsB = leadB.google_news ? leadB.google_news.length : 0
+        return newsB - newsA
+      } else if (sortBy === 'tweet') {
         const tweetA = leadA.tweets ? leadA.tweets.length : 0
         const tweetB = leadB.tweets ? leadB.tweets.length : 0
         return tweetB - tweetA
-      })
-    }
+      }
+
+      // Fallback to the created_at.
+      const dateA = new Date(leadA.created_at).getTime()
+      const dateB = new Date(leadB.created_at).getTime()
+      return dateA - dateB
+    })
 
     this.setState({
       sortBy,
