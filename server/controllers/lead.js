@@ -325,6 +325,34 @@ const getLead = (req, res, next) => {
     })
 }
 
+const populateLead = (lead, cb) => {
+  lead
+    .populate('contacts')
+    .populate({
+      path: 'tweets',
+      match: {
+        created_at: {
+          // Set the limit of recent tweets to two weeks ago.
+          $gte: new Date(new Date().getTime() - (14 * 24 * 3600 * 1000)),
+        },
+      },
+    })
+    .populate({
+      path: 'google_news',
+      match: {
+        published_at: {
+          // Set the limit of recent news to two weeks ago.
+          $gte: new Date(new Date().getTime() - (14 * 24 * 3600 * 1000)),
+        },
+      },
+    }, (err) => {
+      if (err) {
+        return cb(err)
+      }
+      cb(null, lead)
+    })
+}
+
 /**
  * Update an existing lead.
  */
@@ -383,12 +411,11 @@ const putLead = (req, res, next) => {
                 return next(err)
               }
 
-              lead.populate('contacts', (err) => { // eslint-disable-line no-shadow
+              populateLead(lead, (err) => { // eslint-disable-line no-shadow
                 if (err) {
                   return next(err)
                 }
-
-                return res.status(200).json(lead)
+                res.status(200).json(lead)
               })
             })
           })
