@@ -62,11 +62,13 @@ const mapStateToProps = (state, ownProps) => {
   if (ownProps.params.id === undefined) {
     lead = {
       company: '',
-      name: '',
-      email: '',
-      phone: '',
-      notes: '',
       twitter_screen_name: '',
+      contacts: [{
+        name: '',
+        email: '',
+        phone: '',
+        notes: '',
+      }],
     }
   } else {
     lead = state.leads.find(_lead => _lead._id === ownProps.params.id)

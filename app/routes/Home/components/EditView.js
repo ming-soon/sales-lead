@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-for, react/no-array-index-key */
 import React, { Component, PropTypes } from 'react'
 import FormGroup from 'App/components/FormGroup'
 
@@ -12,6 +13,7 @@ class EditView extends Component {
 
     this.state = { ...this.props.lead }
 
+    this.handleAddContact = this.handleAddContact.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
@@ -34,6 +36,36 @@ class EditView extends Component {
     this.setState(newState)
   }
 
+  handleContactChange = (index, field) => (value) => {
+    const contacts = [...this.state.contacts]
+    contacts[index][field] = value
+    this.setState(contacts)
+  }
+
+  handleAddContact(event) {
+    event.preventDefault()
+
+    this.setState({
+      contacts: [
+        ...this.state.contacts,
+        {
+          name: '',
+          email: '',
+          phone: '',
+          notes: '',
+        },
+      ],
+    })
+  }
+
+  handleDeleteContact = (index) => {
+    const contacts = [...this.state.contacts]
+    contacts.splice(index, 1)
+    this.setState({
+      contacts,
+    })
+  }
+
   handleSubmit(event) {
     event.preventDefault()
     this.props.onSubmit(this.state)
@@ -42,6 +74,8 @@ class EditView extends Component {
   render() {
     const isCompanyValid = this.validateCompany(this.state.company)
     const isSubmitDisabled = isCompanyValid !== true
+
+    const { contacts } = this.state
 
     return (
       <div className="row">
@@ -57,36 +91,54 @@ class EditView extends Component {
                   onChange={this.handleChange('company')}
                 />
                 <FormGroup
-                  id="name"
-                  label="Name"
-                  value={this.state.name}
-                  onChange={this.handleChange('name')}
-                />
-                <FormGroup
-                  id="email"
-                  label="Email"
-                  value={this.state.email}
-                  onChange={this.handleChange('email')}
-                />
-                <FormGroup
-                  id="phone"
-                  label="Phone"
-                  value={this.state.phone}
-                  onChange={this.handleChange('phone')}
-                />
-                <FormGroup
-                  id="notes"
-                  type="textarea"
-                  label="Notes"
-                  value={this.state.notes || ''}
-                  onChange={this.handleChange('notes')}
-                />
-                <FormGroup
                   id="twitter_screen_name"
                   label="Twitter Screen Name"
                   value={this.state.twitter_screen_name}
                   onChange={this.handleChange('twitter_screen_name')}
                 />
+                {
+                  contacts.map((contact, index) => (
+                    <div key={index}>
+                      <div className="form-group">
+                        <label className="control-label col-sm-3">Contact Details</label>
+                        <div className="col-sm-9 text-right">
+                          <button type="button" className="btn btn-info btn-sm" onClick={this.handleAddContact}>
+                            Add New Contact
+                          </button>
+                          <button type="button" className="btn btn-danger btn-sm" onClick={() => this.handleDeleteContact(index)}>
+                            Delete Contact
+                          </button>
+                        </div>
+                      </div>
+                      <hr />
+                      <FormGroup
+                        id="name"
+                        label="Name"
+                        value={contact.name}
+                        onChange={this.handleContactChange(index, 'name')}
+                      />
+                      <FormGroup
+                        id="email"
+                        label="Email"
+                        value={contact.email}
+                        onChange={this.handleContactChange(index, 'email')}
+                      />
+                      <FormGroup
+                        id="phone"
+                        label="Phone"
+                        value={contact.phone}
+                        onChange={this.handleContactChange(index, 'phone')}
+                      />
+                      <FormGroup
+                        id="notes"
+                        type="textarea"
+                        label="Notes"
+                        value={contact.notes || ''}
+                        onChange={this.handleContactChange(index, 'notes')}
+                      />
+                    </div>
+                  ))
+                }
                 <div className="form-group no-margin-bottom">
                   <div className="col-sm-9 col-sm-offset-3">
                     <button type="submit" className="btn btn-primary" disabled={isSubmitDisabled}>Save</button>
