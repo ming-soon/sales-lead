@@ -6,11 +6,6 @@ const LeadRow = ({ _id, index, company, contacts, tweets, google_news, onDelete 
     <tr>
       <td>{index}</td>
       <th>{company}</th>
-      <td>
-        <strong>{contacts[0] && contacts[0].name}</strong><br />
-        <a href={`mailto:${contacts[0] && contacts[0].email}`}>{contacts[0] && contacts[0].email}</a><br />
-        {contacts[0] && contacts[0].phone}
-      </td>
       <td>{tweets.length}</td>
       <td>{google_news.length}</td>
       <td className="text-right">
@@ -20,13 +15,22 @@ const LeadRow = ({ _id, index, company, contacts, tweets, google_news, onDelete 
         </button>
       </td>
     </tr>
-    <tr>
-      <td />
-      <td colSpan="4">
-        Notes: {contacts[0] && contacts[0].notes}
-      </td>
-      <td />
-    </tr>
+    {
+      contacts.map(contact => (
+        <tr key={contact._id}>
+          <td />
+          <td>
+            <strong>{contact.name}</strong><br />
+            <a href={`mailto:${contact.email}`}>{contact.email}</a><br />
+            {contact.phone}
+          </td>
+          <td colSpan="2">
+            Notes: {contact.notes}
+          </td>
+          <td />
+        </tr>
+      ))
+    }
   </tbody>
 )
 
