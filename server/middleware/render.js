@@ -81,10 +81,11 @@ const renderApp = (req, res, next) => {
         initialState.sheets = sheets
       }
 
-      _getLeads((err, leads) => { // eslint-disable-line no-shadow
-        if (!err) {
+      _getLeads((err, leads) => { // eslint-disable-line no-shadow, no-unused-vars
+        // FIXME: Pass the initial state of leads.
+        /* if (!err) {
           initialState.leads = leads
-        }
+        } */
 
         renderRoute(req, res, next, initialState)
       })
