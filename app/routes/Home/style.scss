@@ -1,3 +1,15 @@
 .actionColumn {
   min-width: 120px;
 }
+
+.sortContainer {
+  text-align: right;
+
+  :global {
+    .form-control {
+      display: inline-block;
+      margin-left: 10px;
+      max-width: 120px;
+    }
+  }
+}

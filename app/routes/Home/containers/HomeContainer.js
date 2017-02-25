@@ -23,11 +23,14 @@ class HomeContainer extends Component {
       isImporting: false,
       isReadingTweets: false,
       isReadingGoogleNews: false,
+      sortBy: 'none',
+      leads: [...this.props.leads],
     }
 
     this.onImport = this.onImport.bind(this)
     this.onReadTweets = this.onReadTweets.bind(this)
     this.onReadGoogleNews = this.onReadGoogleNews.bind(this)
+    this.onChangeSortBy = this.onChangeSortBy.bind(this)
     this.onDelete = this.onDelete.bind(this)
     this.handleAuth = this.handleAuth.bind(this)
     this.importLeads = this.importLeads.bind(this)
@@ -45,6 +48,12 @@ class HomeContainer extends Component {
       this.setState({
         isGoogleApiLoaded: true,
       })
+    })
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      leads: [...nextProps.leads],
     })
   }
 
@@ -95,6 +104,31 @@ class HomeContainer extends Component {
       // Re-load leads.
       // FIXME: Find a better way.
       this.props.loadLeadsRequest()
+    })
+  }
+
+  onChangeSortBy(event) {
+    const sortBy = event.target.value
+
+    let leads = [...this.props.leads]
+    if (this.state.sortBy !== 'none') {
+      leads = leads.sort((leadA, leadB) => {
+        if (sortBy === 'news') {
+          const newsA = leadA.google_news ? leadA.google_news.length : 0
+          const newsB = leadB.google_news ? leadB.google_news.length : 0
+          return newsB - newsA
+        }
+
+        // Fallback to tweets.
+        const tweetA = leadA.tweets ? leadA.tweets.length : 0
+        const tweetB = leadB.tweets ? leadB.tweets.length : 0
+        return tweetB - tweetA
+      })
+    }
+
+    this.setState({
+      sortBy,
+      leads,
     })
   }
 
@@ -181,8 +215,8 @@ class HomeContainer extends Component {
    * Render home page.
    */
   render() {
-    const { isGoogleApiLoaded, isImporting, isReadingTweets, isReadingGoogleNews } = this.state
-    const { leads } = this.props
+    const { isGoogleApiLoaded, isImporting,
+      isReadingTweets, isReadingGoogleNews, sortBy, leads } = this.state
 
     return (
       <HomeView
@@ -193,7 +227,9 @@ class HomeContainer extends Component {
         onImport={this.onImport}
         onReadTweets={this.onReadTweets}
         onReadGoogleNews={this.onReadGoogleNews}
+        onChangeSortBy={this.onChangeSortBy}
         onDelete={this.onDelete}
+        sortBy={sortBy}
         leads={leads}
       />
     )

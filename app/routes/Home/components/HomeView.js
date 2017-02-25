@@ -1,9 +1,10 @@
 import React, { PropTypes } from 'react'
 import Link from 'react-router/lib/Link'
 import LeadTable from './LeadTable'
+import Style from '../style.scss'
 
 const HomeView = ({ isGoogleApiLoaded, isImporting, isReadingTweets, isReadingGoogleNews,
-  onImport, onReadTweets, onReadGoogleNews, onDelete, leads }) => (
+  sortBy, onImport, onReadTweets, onReadGoogleNews, onChangeSortBy, onDelete, leads }) => (
     <div>
       <div className="page-header clearfix">
         <h3 className="pull-left">Sales Leads</h3>
@@ -19,6 +20,14 @@ const HomeView = ({ isGoogleApiLoaded, isImporting, isReadingTweets, isReadingGo
             { !isReadingGoogleNews ? 'Read News' : 'Reading...' }
           </button>
         </div>
+      </div>
+      <div className={Style.sortContainer}>
+        <strong>Sort by:</strong>
+        <select className="form-control input-sm" value={sortBy} onChange={onChangeSortBy}>
+          <option value="none">None</option>
+          <option value="tweet">Tweet</option>
+          <option value="news">News</option>
+        </select>
       </div>
       <LeadTable
         leads={leads}
@@ -36,7 +45,9 @@ HomeView.propTypes = {
   onImport: PropTypes.func.isRequired,
   onReadTweets: PropTypes.func.isRequired,
   onReadGoogleNews: PropTypes.func.isRequired,
+  onChangeSortBy: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
+  sortBy: PropTypes.string.isRequired,
   leads: PropTypes.arrayOf(PropTypes.object).isRequired,
 }
 
