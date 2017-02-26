@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { GOOGLE_API_CLIENT_ID, GOOGLE_API_SCOPE } from 'Server/constants'
+import clientConfig from 'Server/config/client'
 import { importLeadsRequest, loadLeadsRequest, deleteLeadRequest, readTweetsRequest, readGoogleNewsRequest } from 'App/actions/leads'
 import HomeView from '../components/HomeView'
 
@@ -144,8 +144,8 @@ class HomeContainer extends Component {
 
   checkAuth = (immediate, callback) => {
     window.gapi.auth.authorize({
-      client_id: GOOGLE_API_CLIENT_ID,
-      scope: GOOGLE_API_SCOPE,
+      client_id: clientConfig.GOOGLE_API_CLIENT_ID,
+      scope: clientConfig.GOOGLE_API_SCOPE,
       immediate,
     }, callback)
   }
