@@ -4,6 +4,7 @@ import parallel from 'async/parallel'
 import serverConfig from 'Server/config/server'
 import Lead from 'Server/models/Lead'
 import Tweet from 'Server/models/Tweet'
+import { TWEET_TYPE_POST, TWEET_TYPE_MENTION } from 'Server/constants'
 
 /**
  * Obtain the Application-only bearer token.
@@ -44,6 +45,7 @@ const getTimeline = (client, lead, cb) => {
   const params = {
     screen_name: lead.twitter_screen_name,
     trim_user: true,
+    count: 200,
   }
 
   if (lead.tweet_last_id) {
@@ -62,6 +64,7 @@ const getTimeline = (client, lead, cb) => {
     const tweetObjects = tweets.map((tweet) => {
       const hashtags = tweet.entities.hashtags.map(hashtag => hashtag.text)
       return new Tweet({
+        type: TWEET_TYPE_POST,
         tweet_id: tweet.id_str,
         text: tweet.text,
         hashtags,
@@ -84,6 +87,78 @@ const getTimeline = (client, lead, cb) => {
       lead.save()
 
       return cb(null, tweetsAdded)
+    })
+  })
+}
+
+const getMentionedTweets = (client, lead, cb, maxId) => {
+  const params = {
+    q: `@${lead.twitter_screen_name}`,
+    result_type: 'recent',
+    count: 100,
+  }
+
+  if (typeof maxId !== 'undefined') {
+    params.max_id = maxId
+  } else if (lead.tweet_last_mentioned_id) {
+    params.since_id = lead.tweet_last_mentioned_id
+  }
+
+  client.get('search/tweets', params, (err, response) => {
+    if (err) {
+      return cb(err, [])
+    }
+
+    let tweets = response.statuses
+    if (typeof maxId !== 'undefined') {
+      tweets = tweets.slice(1)
+    }
+
+    if (tweets.length === 0) {
+      return cb(null, [])
+    }
+
+    const tweetObjects = tweets.map((tweet) => {
+      const hashtags = tweet.entities.hashtags.map(hashtag => hashtag.text)
+      return new Tweet({
+        type: TWEET_TYPE_MENTION,
+        tweet_id: tweet.id_str,
+        text: tweet.text,
+        hashtags,
+        created_at: tweet.created_at,
+        user: {
+          id: tweet.user.id_str,
+          name: tweet.user.name,
+          screen_name: tweet.user.screen_name,
+        },
+        lead: lead._id,
+      })
+    })
+
+    Tweet.insertMany(tweetObjects, (err, tweetsAdded) => { // eslint-disable-line no-shadow
+      if (err) {
+        return cb(err, [])
+      }
+
+      if (typeof maxId === 'undefined') {
+        // Save the oldest Tweet ID.
+        lead.tweet_last_mentioned_id = tweets[0].id_str // eslint-disable-line no-param-reassign
+      }
+
+      // Save tweets to leads.
+      lead.tweets.push(...tweetsAdded)
+
+      lead.save()
+
+      if ((typeof maxId === 'undefined' && tweetsAdded.length === 100) ||
+        (typeof maxId !== 'undefined' && tweetsAdded.length === 99)) {
+        const nextMaxId = typeof maxId === 'undefined' ? tweets[99].id_str : tweets[98].id_str
+        getMentionedTweets(client, lead, (err, _tweets) => { // eslint-disable-line no-shadow
+          cb(err, [..._tweets, ...tweetsAdded])
+        }, nextMaxId)
+      } else {
+        cb(null, tweetsAdded)
+      }
     })
   })
 }
@@ -122,6 +197,12 @@ const readTweets = (req, res, next) => {
 
           asyncTasks.push((cb) => {
             getTimeline(client, lead, (err, tweets) => ( // eslint-disable-line no-shadow
+              cb(err, tweets.length)
+            ))
+          })
+
+          asyncTasks.push((cb) => {
+            getMentionedTweets(client, lead, (err, tweets) => ( // eslint-disable-line no-shadow
               cb(err, tweets.length)
             ))
           })

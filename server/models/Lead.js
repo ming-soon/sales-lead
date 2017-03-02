@@ -10,6 +10,7 @@ const leadSchema = new mongoose.Schema({
   },
   twitter_screen_name: String,
   tweet_last_id: String,
+  tweet_last_mentioned_id: String,
 
   contacts: [{
     type: mongoose.Schema.Types.ObjectId,

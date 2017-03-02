@@ -8,7 +8,8 @@ const LeadTable = ({ leads, onDelete }) => (
       <tr>
         <th>No.</th>
         <th>Company</th>
-        <th>Tweets</th>
+        <th>Tweets Posted</th>
+        <th>Tweets Mentioned</th>
         <th>News</th>
         <th className={Style.actionColumn} />
       </tr>
@@ -23,7 +24,7 @@ const LeadTable = ({ leads, onDelete }) => (
       : (
         <tbody>
           <tr>
-            <td colSpan="5" className="text-muted text-center">There is no lead.</td>
+            <td colSpan="6" className="text-muted text-center">There is no lead.</td>
           </tr>
         </tbody>
       )

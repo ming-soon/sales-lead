@@ -40,11 +40,7 @@ export const _getLeads = (cb) => {
 }
 
 /**
- * [getLeads description]
- * @param  {[type]}   req  [description]
- * @param  {[type]}   res  [description]
- * @param  {Function} next [description]
- * @return {[type]}        [description]
+ * Retrive all leads.
  */
 const getLeads = (req, res, next) => {
   _getLeads((err, leads) => {
@@ -333,30 +329,6 @@ const postLeadBulk = (req, res, next) => {
 }
 
 /**
- * [getLead description]
- * @param  {[type]}   req  [description]
- * @param  {[type]}   res  [description]
- * @param  {Function} next [description]
- * @return {[type]}        [description]
- */
-const getLead = (req, res, next) => {
-  Lead
-    .findById(req.params.id)
-    .populate('contacts')
-    .exec((err, lead) => {
-      if (err) {
-        return next(err)
-      }
-
-      if (!lead) {
-        return res.status(400).end()
-      }
-
-      return res.status(200).json(lead)
-    })
-}
-
-/**
  * [populateLead description]
  * @param  {[type]}   lead [description]
  * @param  {Function} cb   [description]
@@ -387,6 +359,34 @@ const populateLead = (lead, cb) => {
         return cb(err)
       }
       cb(null, lead)
+    })
+}
+
+/**
+ * [getLead description]
+ * @param  {[type]}   req  [description]
+ * @param  {[type]}   res  [description]
+ * @param  {Function} next [description]
+ * @return {[type]}        [description]
+ */
+const getLead = (req, res, next) => {
+  Lead
+    .findById(req.params.id)
+    .exec((err, lead) => {
+      if (err) {
+        return next(err)
+      }
+
+      if (!lead) {
+        return res.status(400).end()
+      }
+
+      populateLead(lead, (err) => { // eslint-disable-line no-shadow
+        if (err) {
+          return next(err)
+        }
+        res.status(200).json(lead)
+      })
     })
 }
 

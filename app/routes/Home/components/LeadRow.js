@@ -1,12 +1,14 @@
 import React, { PropTypes } from 'react'
 import Link from 'react-router/lib/Link'
+import { TWEET_TYPE_POST, TWEET_TYPE_MENTION } from 'Server/constants'
 
 const LeadRow = ({ _id, index, company, contacts, tweets, google_news, onDelete }) => (
   <tbody>
     <tr>
       <td>{index}</td>
       <th>{company}</th>
-      <td>{tweets.length}</td>
+      <td>{tweets.filter(tweet => tweet.type === TWEET_TYPE_POST).length}</td>
+      <td>{tweets.filter(tweet => tweet.type === TWEET_TYPE_MENTION).length}</td>
       <td>{google_news.length}</td>
       <td className="text-right">
         <Link to={`/leads/${_id}`} className="btn btn-info btn-xs">Edit</Link>
@@ -24,7 +26,7 @@ const LeadRow = ({ _id, index, company, contacts, tweets, google_news, onDelete 
             <a href={`mailto:${contact.email}`}>{contact.email}</a><br />
             {contact.phone}
           </td>
-          <td colSpan="2">
+          <td colSpan="3">
             Notes: {contact.notes}
           </td>
           <td />
