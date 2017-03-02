@@ -88,6 +88,13 @@ const getTimeline = (client, lead, cb) => {
   })
 }
 
+/**
+ * [readTweets description]
+ * @param  {[type]}   req  [description]
+ * @param  {[type]}   res  [description]
+ * @param  {Function} next [description]
+ * @return {[type]}        [description]
+ */
 const readTweets = (req, res, next) => {
   obtainToken((err, token) => {
     if (err) {

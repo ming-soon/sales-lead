@@ -3,6 +3,11 @@ import parallel from 'async/parallel'
 import Lead from 'Server/models/Lead'
 import Contact from 'Server/models/Contact'
 
+/**
+ * [_getLeads description]
+ * @param  {Function} cb [description]
+ * @return {[type]}      [description]
+ */
 export const _getLeads = (cb) => {
   Lead
     .find()
@@ -34,6 +39,13 @@ export const _getLeads = (cb) => {
     })
 }
 
+/**
+ * [getLeads description]
+ * @param  {[type]}   req  [description]
+ * @param  {[type]}   res  [description]
+ * @param  {Function} next [description]
+ * @return {[type]}        [description]
+ */
 const getLeads = (req, res, next) => {
   _getLeads((err, leads) => {
     if (err) {
@@ -167,6 +179,11 @@ const updateContacts = (lead, contacts, cb) => {
   })
 }
 
+/**
+ * [addLead description]
+ * @param {[type]}   payload [description]
+ * @param {Function} cb      [description]
+ */
 const addLead = (payload, cb) => {
   const lead = new Lead({
     company: payload.company,
@@ -198,6 +215,13 @@ const addLead = (payload, cb) => {
   })
 }
 
+/**
+ * [postLead description]
+ * @param  {[type]}   req  [description]
+ * @param  {[type]}   res  [description]
+ * @param  {Function} next [description]
+ * @return {[type]}        [description]
+ */
 const postLead = (req, res, next) => {
   req.assert('company', 'Company cannot be blank.').notEmpty()
 
@@ -308,6 +332,13 @@ const postLeadBulk = (req, res, next) => {
   })
 }
 
+/**
+ * [getLead description]
+ * @param  {[type]}   req  [description]
+ * @param  {[type]}   res  [description]
+ * @param  {Function} next [description]
+ * @return {[type]}        [description]
+ */
 const getLead = (req, res, next) => {
   Lead
     .findById(req.params.id)
@@ -325,6 +356,12 @@ const getLead = (req, res, next) => {
     })
 }
 
+/**
+ * [populateLead description]
+ * @param  {[type]}   lead [description]
+ * @param  {Function} cb   [description]
+ * @return {[type]}        [description]
+ */
 const populateLead = (lead, cb) => {
   lead
     .populate('contacts')
@@ -424,6 +461,13 @@ const putLead = (req, res, next) => {
   })
 }
 
+/**
+ * [deleteLead description]
+ * @param  {[type]}   req  [description]
+ * @param  {[type]}   res  [description]
+ * @param  {Function} next [description]
+ * @return {[type]}        [description]
+ */
 const deleteLead = (req, res, next) => {
   Lead.findById(req.params.id, (err, lead) => {
     if (err) {

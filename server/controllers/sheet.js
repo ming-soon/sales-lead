@@ -1,5 +1,10 @@
 import Sheet from 'Server/models/Sheet'
 
+/**
+ * [_getSheets description]
+ * @param  {Function} cb [description]
+ * @return {[type]}      [description]
+ */
 export const _getSheets = (cb) => {
   Sheet
     .find()
@@ -12,6 +17,13 @@ export const _getSheets = (cb) => {
     })
 }
 
+/**
+ * [getSheets description]
+ * @param  {[type]}   req  [description]
+ * @param  {[type]}   res  [description]
+ * @param  {Function} next [description]
+ * @return {[type]}        [description]
+ */
 const getSheets = (req, res, next) => {
   _getSheets((err, sheets) => {
     if (err) {
@@ -22,6 +34,13 @@ const getSheets = (req, res, next) => {
   })
 }
 
+/**
+ * [postSheet description]
+ * @param  {[type]}   req  [description]
+ * @param  {[type]}   res  [description]
+ * @param  {Function} next [description]
+ * @return {[type]}        [description]
+ */
 const postSheet = (req, res, next) => {
   req.assert('title', 'Title cannot be blank.').notEmpty()
   req.assert('spreadsheetId', 'Spreadsheet ID cannot be blank.').notEmpty()
@@ -50,6 +69,13 @@ const postSheet = (req, res, next) => {
   })
 }
 
+/**
+ * [getSheet description]
+ * @param  {[type]}   req  [description]
+ * @param  {[type]}   res  [description]
+ * @param  {Function} next [description]
+ * @return {[type]}        [description]
+ */
 const getSheet = (req, res, next) => {
   Sheet.findById(req.params.id, (err, sheet) => {
     if (err) {
@@ -64,6 +90,13 @@ const getSheet = (req, res, next) => {
   })
 }
 
+/**
+ * [putSheet description]
+ * @param  {[type]}   req  [description]
+ * @param  {[type]}   res  [description]
+ * @param  {Function} next [description]
+ * @return {[type]}        [description]
+ */
 const putSheet = (req, res, next) => {
   req.assert('title', 'Title cannot be blank.').notEmpty()
   req.assert('spreadsheetId', 'Spreadsheet ID cannot be blank.').notEmpty()
@@ -96,6 +129,13 @@ const putSheet = (req, res, next) => {
   })
 }
 
+/**
+ * [deleteSheet description]
+ * @param  {[type]}   req  [description]
+ * @param  {[type]}   res  [description]
+ * @param  {Function} next [description]
+ * @return {[type]}        [description]
+ */
 const deleteSheet = (req, res, next) => {
   Sheet.remove({ _id: req.params.id }, (err) => {
     if (err) {

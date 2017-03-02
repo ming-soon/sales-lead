@@ -33,7 +33,6 @@ const HomeView = ({ isGoogleApiLoaded, isImporting, isReadingTweets, isReadingGo
         leads={leads}
         onDelete={onDelete}
       />
-      <script src="https://apis.google.com/js/api.js" />
     </div>
 )
 
